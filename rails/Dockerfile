@@ -45,8 +45,6 @@ RUN cd /usr/src/ruby \
     && sudo rm -r /usr/src/ruby
 
 
-ENV BUNDLER_VERSION 1.11.2
-
 RUN sudo gem install bundler --version "$BUNDLER_VERSION" --force
 
 # install things globally, for great justice
@@ -64,6 +62,9 @@ RUN sudo apt-get update && sudo apt-get install -y nodejs --no-install-recommend
 
 # see http://guides.rubyonrails.org/command_line.html#rails-dbconsole
 RUN sudo apt-get update && sudo apt-get install -y mysql-client postgresql-client sqlite3 --no-install-recommends && sudo rm -rf /var/lib/apt/lists/*
+
+# Install additional dependencies
+RUN sudo apt-get update && sudo apt-get install -y libmysqlclient-dev cmake libcurl4-openssl-dev pkg-config --no-install-recommends && sudo rm -rf /var/lib/apt/lists/*
 
 RUN sudo gem install rails --version "$RAILS_VERSION"
 
